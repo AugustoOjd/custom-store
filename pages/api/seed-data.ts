@@ -1,17 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {db} from '../../database'
-import {initialData} from '../../database'
+import {seedDataBase} from '../../database'
+import {Product} from '../../models';
 
 
 
 
 type Data = {
-  name: string
+  message: string
 }
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
+export default async function handler(req: NextApiRequest,res: NextApiResponse<Data>) {
+
+  if(process.env.NODE_ENV === 'production'){
+    return res.status(401).json({message: 'sin acceso'})
+  }
+
+  await db.connect()
+
+  await Product.deleteMany()
+  await Product.insertMany( seedDataBase.initialData.products )
+
+  await db.disconnect()
+
+  res.status(201).json({ message: 'Proceso de db seed realizado' })
 }

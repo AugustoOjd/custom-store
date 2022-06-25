@@ -44,6 +44,8 @@ const productSchmea = new Schema(
 
 // Crear indice en mongo
 
-const Product: Model<IProduct> = mongoose.models.Product || model('Product', productSchmea)
+productSchmea.index({title: 'text', tags: 'text'})
+
+const Product: Model<IProduct> = mongoose.models.Product || mongoose.model('Product', productSchmea)
 
 export default Product
