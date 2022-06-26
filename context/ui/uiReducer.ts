@@ -8,7 +8,7 @@ export const uiReducer = (state: UiState, action: UiActionType): UiState => {
         case '[UI] - ToggleMenu':
             return {
                 ...state,
-                isMenuOpen: state.isMenuOpen
+                isMenuOpen: !state.isMenuOpen
             }
     
         default:
