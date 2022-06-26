@@ -1,15 +1,19 @@
 import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
 import { AppBar, Badge, Box, Button, IconButton, Link, Toolbar, Typography } from '@mui/material'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 
 export const Navbar = () => {
+
+
+    const router = useRouter()
   return (
     <>
         <AppBar>
             <Toolbar>
-                <NextLink href={'/'}>
+                <NextLink href={'/'} passHref>
 
-                    <Link display={'flex'} alignItems={'center'}>
+                    <Link display={'flex'} alignItems={'center'} >
                         <Typography variant='h6'> AbaConnect |</Typography>
                         <Typography sx={{ ml: 0.5}}> Shop</Typography>
                     </Link>
@@ -19,22 +23,22 @@ export const Navbar = () => {
 
                 <Box sx={{ display: { xs: 'none', sm: 'block'}}}>
                     <NextLink href={'/category/men'} passHref>
-                        <Link>
-                            <Button>
+                        <Link >
+                            <Button color={router.asPath === '/category/men' ? 'primary' : 'info'}>
                                 Hombre
                             </Button>
                         </Link>
                     </NextLink>
                     <NextLink href={'/category/women'} passHref>
                         <Link>
-                            <Button>
+                            <Button color={router.asPath === '/category/women' ? 'primary' : 'info'}>
                                 Mujeres
                             </Button>
                         </Link>
                     </NextLink>
                     <NextLink href={'/category/kids'} passHref>
                         <Link>
-                            <Button>
+                            <Button color={router.asPath === '/category/kids' ? 'primary' : 'info'}>
                                 Kids
                             </Button>
                         </Link>
@@ -51,7 +55,7 @@ export const Navbar = () => {
                     
                     <Link>
                         <IconButton>
-                            <Badge badgeContent={2}>
+                            <Badge badgeContent={2} color={'secondary'}>
                                 <ShoppingCartOutlined/> 
                             </Badge>
                         </IconButton>

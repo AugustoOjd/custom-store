@@ -11,11 +11,13 @@ export const ProductCart:FC<Props> = ({product}) => {
 
     const [IsHovered, setIsHovered] = useState(false)
 
+    const [IsImageLoading, setIsImageLoading] = useState(false)
+
     
     const productImage = useMemo(() => {
         return IsHovered
-        ? `products/${ product.images[1]}`
-        : `products/${ product.images[0]}`
+        ? `/products/${ product.images[1]}`
+        : `/products/${ product.images[0]}`
 
     }, [IsHovered, product.images])
     
@@ -30,7 +32,7 @@ export const ProductCart:FC<Props> = ({product}) => {
             >
           <Card>
 
-            <NextLink href={'./product/slug'} passHref prefetch={false}>
+            <NextLink href={'/product/slug'} passHref prefetch={false}>
                 <Link>
 
                 <CardActionArea>
@@ -39,7 +41,7 @@ export const ProductCart:FC<Props> = ({product}) => {
                     image={ productImage } 
                     alt={product.title}
                     className='fadeIn'
-                    //   onLoad={ }
+                    onLoad={ ()=> setIsImageLoading(true) }
                     >
 
                     </CardMedia>
@@ -49,7 +51,7 @@ export const ProductCart:FC<Props> = ({product}) => {
 
           </Card>
 
-          <Box sx={{ mt: 1}} className='fadeIn'>
+          <Box sx={{ mt: 1}} display={IsImageLoading ? 'block' : 'none'} className='fadeIn'>
             <Typography fontWeight={700} >{product.title}</Typography>
             <Typography fontWeight={500} >${product.price}</Typography>
           </Box>
