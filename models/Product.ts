@@ -8,7 +8,7 @@ const productSchmea = new Schema(
         images: [{type: String}],
         inStock: {type: Number, required: true, default: 0},
         price: {type: Number, required: true, default: 0},
-        size: [
+        sizes: [
             {
                 type: String,
                 enum: {
@@ -46,6 +46,6 @@ const productSchmea = new Schema(
 
 productSchmea.index({title: 'text', tags: 'text'})
 
-const Product: Model<IProduct> = mongoose.models.Product || mongoose.model('Product', productSchmea)
+const Product: Model<IProduct> = mongoose.models.Product || model('Product', productSchmea)
 
 export default Product

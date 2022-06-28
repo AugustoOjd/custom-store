@@ -1,17 +1,17 @@
 import type { NextPage } from 'next'
-import { ShopLayout } from '../components/layouts';
+import { ShopLayout } from '../../components/layouts';
 import { Card, CardActionArea, CardMedia, Grid, Typography } from '@mui/material';
-import { initialData } from '../database/products';
+import { initialData } from '../../database/products';
 import { Box } from '@mui/system';
-import { ProductList } from '../components/products';
-import { useProducts } from '../hooks';
-import { FullScreenLoading } from '../components/ui';
+import { ProductList } from '../../components/products';
+import { useProducts } from '../../hooks';
+import { FullScreenLoading } from '../../components/ui';
 
 
 
-const Home: NextPage = () => {
+const SearchPage: NextPage = () => {
 
-  const { products, isLoading, isError} = useProducts('/products')
+  const { products, isLoading, isError} = useProducts(`/search/${'faltaquery'}`)
 
   return (
     <>
@@ -21,10 +21,10 @@ const Home: NextPage = () => {
 
 
       <Typography variant='h1' component={'h1'}>
-          Tienda
+            Buscar Producto
         </Typography>
         <Typography variant='h2' sx={{md: 1}}>
-          Todos los productos
+            {}
         </Typography>
 
         {
@@ -41,4 +41,5 @@ const Home: NextPage = () => {
     </>
   )
 }
-export default Home
+
+export default SearchPage
