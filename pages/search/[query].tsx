@@ -11,10 +11,12 @@ import { dbProducts } from '../../database';
 import { IProduct } from '../../interface';
 
 interface Props{
-  products: IProduct[]
+  products: IProduct[],
+  foundProducts: boolean,
+  query: string
 }
 
-const SearchPage: NextPage<Props> = ({products}) => {
+const SearchPage: NextPage<Props> = ({products, foundProducts, query}) => {
 
 
   return (
@@ -25,11 +27,31 @@ const SearchPage: NextPage<Props> = ({products}) => {
 
 
       <Typography variant='h1' component={'h1'}>
-            Buscar Producto
+            Buscando Producto
         </Typography>
-        <Typography variant='h2' sx={{md: 1}}>
-            {}
-        </Typography>
+
+        {
+          foundProducts
+          ?
+          <Typography variant='h2' sx={{md: 1}} textTransform={'capitalize'} >
+            Palabra clave: { query }
+          </Typography>
+          :
+          (
+          <>
+            <Box display={'flex'}>
+              <Typography variant='h2' sx={{md: 1}}>
+                No se encontro ningun producto:
+              </Typography>
+              <Typography variant='h2' sx={{md: 1}} textTransform={'capitalize'}>
+                {query}
+              </Typography>
+            </Box>
+
+          </>
+          )
+        }
+
 
 
         <ProductList products={ products }/>
@@ -59,11 +81,18 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
   let products = await dbProducts.getProductsByTerm( query )
 
-
+  const foundProducts = products.length > 0
   // TODO: alternativas de productos
+
+  if(!foundProducts){
+    products = await dbProducts.getAllProducts()
+  }
+
   return {
     props: {
-      products
+      products,
+      foundProducts,
+      query
     }, // will be passed to the page component as props
   }
 }
