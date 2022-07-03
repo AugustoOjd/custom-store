@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, CardMedia, Grid, Link, Typography } from '@mui/material'
+import { Box, Card, CardActionArea, CardMedia, Chip, Grid, Link, Typography } from '@mui/material'
 import React, { FC, useMemo, useState } from 'react'
 import { IProduct } from '../../interface';
 import NextLink from 'next/link';
@@ -36,6 +36,19 @@ export const ProductCart:FC<Props> = ({product}) => {
                 <Link>
 
                 <CardActionArea>
+
+                  {
+                    (product.inStock === 0) && (
+
+                        <Chip 
+                        color='error'
+                        label='Sin stock'
+                        sx={{position: 'absolute', zIndex: 99, top: '10px', left:'10px'}}
+                      />
+                    )
+                    
+                  }
+
                     <CardMedia 
                     component={'img'} 
                     image={ productImage } 

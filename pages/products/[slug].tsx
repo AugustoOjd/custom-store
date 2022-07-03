@@ -1,13 +1,14 @@
 import { Button, Chip, Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system';
-import React from 'react'
+import React, {useState} from 'react'
 import { ShopLayout } from '../../components/layouts/ShopLayout';
 import { ProductSlideShow, SizeSelector } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
-import { IProduct } from '../../interface';
+import { ICartProduct, IProduct } from '../../interface';
 import { FC } from 'react';
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { dbProducts } from '../../database';
+
 
 
 interface Props{
@@ -21,6 +22,17 @@ const ProductoPage:FC<Props> = ({ product }) => {
     // const router = useRouter()
 
     // const {products: product, isLoading} = useProducts(`/products/${ router.query.slug }`)
+
+    const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
+      _id: product._id, 
+      image: product.images[0], 
+      price: product.price, 
+      size: undefined,
+      slug: product.slug, 
+      title: product.title,
+      gender: product.gender, 
+      quantity: 1
+    })
 
   return (
     <>
@@ -47,12 +59,24 @@ const ProductoPage:FC<Props> = ({ product }) => {
                 sizes={product.sizes}/>
               </Box>
 
-              <Button color='secondary' className='circular-btn'>
-                Agregar al carrito
-              </Button>
+              {
+                product.inStock === 0
+                ?
+                <Chip label='no hay disponibles' color='error' variant='outlined' />
+                :
+                (
+                  tempCartProduct.size
+                  ?
 
-              {/* <Chip label='no hay disponibles' color='error' variant='outlined' /> */}
-
+                <Button color='secondary' className='circular-btn'>
+                  Agregar al carrito
+                </Button>
+                :
+                <Button disabled color='secondary' className='circular-btn'>
+                  Seleccione una talla
+                </Button>
+                )
+              }
 
               <Box sx={{ mt: 3}}>
                 <Typography variant='subtitle2'> Description: </Typography>
