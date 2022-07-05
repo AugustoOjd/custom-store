@@ -5,11 +5,12 @@ import { ShopLayout } from '../../components/layouts/ShopLayout';
 import { ProductSlideShow, SizeSelector } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
 import { ICartProduct, IProduct } from '../../interface';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { dbProducts } from '../../database';
 import { ISize } from '../../interface/products';
-
+import { useRouter } from 'next/router';
+import { CartContext } from '../../context/cart';
 
 
 interface Props{
@@ -19,6 +20,10 @@ interface Props{
 
 
 const ProductoPage:FC<Props> = ({ product }) => {
+
+    const router = useRouter()
+
+    const { addProductToCart } = useContext(CartContext)
 
 
     const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
@@ -40,6 +45,20 @@ const ProductoPage:FC<Props> = ({ product }) => {
       }))
     }
 
+    const onUpdateQuantity= ( quantity: number) =>{
+      setTempCartProduct( currentProduct => ({
+        ...currentProduct,
+        quantity
+      }))
+    }
+
+    const addProduct = ()=>{
+      if( !tempCartProduct.size) return;
+
+      addProductToCart(tempCartProduct)
+      // router.push('/cart')
+    }
+
   return (
     <>
       <ShopLayout title={product.title} pageDescription={product.description}>
@@ -59,7 +78,12 @@ const ProductoPage:FC<Props> = ({ product }) => {
 
               <Box sx={{ my: 2}}>
                 <Typography variant='subtitle2'>Cantidad</Typography>
-                <ItemCounter />
+                <ItemCounter 
+                  currentValue={tempCartProduct.quantity} 
+                  updatedQuantity={ onUpdateQuantity }
+                  maxValue={ product.inStock }
+
+                  />
                 <SizeSelector 
                 // selectedSize={product.sizes} 
                 sizes={product.sizes}
@@ -77,7 +101,7 @@ const ProductoPage:FC<Props> = ({ product }) => {
                   tempCartProduct.size
                   ?
 
-                <Button color='secondary' className='circular-btn'>
+                <Button color='secondary' className='circular-btn' onClick={addProduct}>
                   Agregar al carrito
                 </Button>
                 :

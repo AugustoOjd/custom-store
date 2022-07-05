@@ -4,7 +4,7 @@ import { ICartProduct } from '../../interface';
 
 type CartActionType=
 | { type: '[CART] - LoadCart from cookies | storage', payload: ICartProduct[] }
-| { type: '[CART] - Add Product | storage', payload: ICartProduct[]}
+| { type: '[CART] - Add Product', payload: ICartProduct[]}
 
 export const cartReducer = (state: CartState, action: CartActionType): CartState => {
     switch (action.type) {
@@ -12,6 +12,12 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
             
             return{
                 ...state
+            }
+
+        case '[CART] - Add Product':
+            return{
+                ...state,
+                cart: [...action.payload]
             }
     
         default:

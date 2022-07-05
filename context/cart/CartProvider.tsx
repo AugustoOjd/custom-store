@@ -18,9 +18,19 @@ export interface Props{
 export const CartProvider:FC<Props> = ({children}) => {
 
     const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE)
-  return (
+
+    const addProductToCart = (product: ICartProduct)=>{
+        // dispatch({ type: '[CART] - Add Product', payload: product})
+        
+       
+    
+    }
+
+    return (
     <CartContext.Provider value={{
-        ...state
+        ...state,
+        // metodos
+        addProductToCart
     }}>
 
         {children}
