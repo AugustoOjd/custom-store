@@ -8,6 +8,7 @@ import { ICartProduct, IProduct } from '../../interface';
 import { FC } from 'react';
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { dbProducts } from '../../database';
+import { ISize } from '../../interface/products';
 
 
 
@@ -19,9 +20,6 @@ interface Props{
 
 const ProductoPage:FC<Props> = ({ product }) => {
 
-    // const router = useRouter()
-
-    // const {products: product, isLoading} = useProducts(`/products/${ router.query.slug }`)
 
     const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
       _id: product._id, 
@@ -33,6 +31,14 @@ const ProductoPage:FC<Props> = ({ product }) => {
       gender: product.gender, 
       quantity: 1
     })
+
+
+    const selectedSize= (size: ISize) =>{
+      setTempCartProduct( currentProduct => ({
+        ...currentProduct,
+        size
+      }))
+    }
 
   return (
     <>
@@ -56,7 +62,10 @@ const ProductoPage:FC<Props> = ({ product }) => {
                 <ItemCounter />
                 <SizeSelector 
                 // selectedSize={product.sizes} 
-                sizes={product.sizes}/>
+                sizes={product.sizes}
+                selectedSize={tempCartProduct.size}
+                onSelectedSize={ (size)=> selectedSize(size)}
+                />
               </Box>
 
               {
@@ -72,7 +81,7 @@ const ProductoPage:FC<Props> = ({ product }) => {
                   Agregar al carrito
                 </Button>
                 :
-                <Button disabled color='secondary' className='circular-btn'>
+                <Button disabled color='primary' className='circular-btn'>
                   Seleccione una talla
                 </Button>
                 )
