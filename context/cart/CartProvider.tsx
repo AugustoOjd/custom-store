@@ -22,7 +22,7 @@ export const CartProvider:FC<Props> = ({children}) => {
     const addProductToCart = (product: ICartProduct)=>{
         // dispatch({ type: '[CART] - Add Product', payload: product})
         
-       
+        
     
     }
 
