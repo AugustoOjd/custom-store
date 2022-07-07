@@ -133,7 +133,7 @@ export const Navbar = () => {
                     
                     <Link>
                         <IconButton>
-                            <Badge badgeContent={badge} color={'secondary'}>
+                            <Badge badgeContent={badge > 9 ? '9+' : badge} color={'secondary'}>
                                 <ShoppingCartOutlined/> 
                             </Badge>
                         </IconButton>
