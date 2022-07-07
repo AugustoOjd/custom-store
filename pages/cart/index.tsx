@@ -13,11 +13,11 @@ const CartPage = () => {
             Carrito
         </Typography>
 
-        <Grid container>
-            <Grid item xs={12} sm={7}>
+        <Grid container sx={{display: 'flex', flexDirection: {sm: 'column', md: 'row'} }}>
+            <Grid item sm={12}  md={7}>
                 <CartList editable/>
             </Grid>
-            <Grid item xs={12} sm={5}>
+            <Grid item sm={12} md={5}>
                 <Card className='summary-card'>
                     <CardContent>
                         <Typography

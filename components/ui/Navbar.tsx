@@ -3,10 +3,16 @@ import { AppBar, Badge, Box, Button, IconButton, Input, InputAdornment, Link, To
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useContext, useState } from 'react'
+import { CartContext } from '../../context'
 import { UiContext } from '../../context/ui'
 
 export const Navbar = () => {
 
+    const {cart} = useContext(CartContext)
+
+    const totalCart = cart.map(p=> p.quantity)
+
+    const badge = totalCart.reduce((prev: number, current: number)=> prev + current, 0)
 
     const {asPath, push} = useRouter()
 
@@ -127,7 +133,7 @@ export const Navbar = () => {
                     
                     <Link>
                         <IconButton>
-                            <Badge badgeContent={2} color={'secondary'}>
+                            <Badge badgeContent={badge} color={'secondary'}>
                                 <ShoppingCartOutlined/> 
                             </Badge>
                         </IconButton>
