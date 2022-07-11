@@ -6,6 +6,9 @@ import { storeApi } from '../../api';
 import { ErrorOutline } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { valitations } from '../../utils';
+import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { AuthContext } from '../../context';
 
 
 type FormData = {
@@ -16,8 +19,12 @@ type FormData = {
 
 const RegisterPage = () => {
 
+
+    const router = useRouter()
+    const { registerUser } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [showError, setShowError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     console.log(errors)
 
@@ -25,20 +32,18 @@ const RegisterPage = () => {
 
         setShowError(false)
 
-        try {
-                const { data } = await storeApi.post('/user/register', { name, email, password })
-            
-                const { token, user } = data
-                console.log( {token, user})
-        } catch (error) {
-                console.log('error en las credenciales')
-                setShowError(true)
+        const { hasError, message} = await registerUser( name, email, password )
 
-                setTimeout(() => {
-                    setShowError(false)
-                }, 3000);
-
+        if( hasError){
+            setShowError(true)
+            setErrorMessage( message! )
+            setTimeout(() => {
+                setShowError(false)
+            }, 3000);
+            return
         }
+        
+        router.replace('/')
     }
 
 

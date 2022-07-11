@@ -6,6 +6,9 @@ import { useForm } from 'react-hook-form';
 import { valitations } from '../../utils';
 import { storeApi } from '../../api';
 import { ErrorOutline } from '@mui/icons-material';
+import { useContext } from 'react';
+import { AuthContext } from '../../context';
+import { useRouter } from 'next/router';
 
 
 
@@ -18,6 +21,8 @@ type FormData = {
 const LoginPage = () => {
 
 
+    const router = useRouter()
+    const { loginUser } = useContext( AuthContext )
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const [showError, setShowError] = useState(false)
@@ -28,22 +33,20 @@ const LoginPage = () => {
 
         setShowError(false)
 
-       try {
-            const { data } = await storeApi.post('/user/login', { email, password })
+        const isValidLogin = await loginUser( email, password)
 
-            const { token, user } = data
-            console.log( {token, user})
-       } catch (error) {
-            console.log('error en las credenciales')
+        if(!isValidLogin){
             setShowError(true)
-            
             setTimeout(() => {
                 setShowError(false)
             }, 3000);
-       }
+
+            return
+        }
 
 
     //    Navegar a la pantalla que el usuario dejo
+        router.replace('/')
     }
     
   return (

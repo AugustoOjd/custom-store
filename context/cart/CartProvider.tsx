@@ -30,18 +30,17 @@ export const CartProvider:FC<Props> = ({children}) => {
 
     useEffect(() => {
         try {
-            const cookieProducts = Cookie.get('cart') ? JSON.parse( Cookie.get('cart')! ) : []
-            dispatch({type : '[CART] - LoadCart from cookies | storage', payload: cookieProducts})
+            const cookieProducts = Cookie.get('cart') ? JSON.parse( Cookie.get('cart')! ): []
+            dispatch({ type: '[CART] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
-            dispatch({type : '[CART] - LoadCart from cookies | storage', payload: []})
+            dispatch({ type: '[CART] - LoadCart from cookies | storage', payload: [] });
         }
-        
-    }, [])
-    
+    }, []);
 
+    
     useEffect(() => {
-        Cookie.set('cart', JSON.stringify( state.cart ))
-    }, [state.cart])
+      Cookie.set('cart', JSON.stringify( state.cart ));
+    }, [state.cart]);
 
     useEffect(() => {
 
