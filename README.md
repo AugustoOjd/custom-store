@@ -2,7 +2,7 @@
 
 Esto es una practica utilizando, nextjs, typescript, mongo compass y docker
 
-# Next.js OpenJira App
+# Next.js CustomShop App
 Para correr localmente, se necesita la base de datos
 
 ```
@@ -19,6 +19,15 @@ Renombrar el archivo __.env.template__a__.env__
 ```
 MONGO_URL=MONGO://localhost:27017/productsdb
 ```
+
+* Reconstruir los modulos de node y levantar Next
+
+```
+yarn install
+yarn dev
+
+```
+
 
 ## Llenar la base de datos con informacion de pruebas (crea el modelo)
 

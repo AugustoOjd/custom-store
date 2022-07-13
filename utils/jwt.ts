@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-import { resolve } from 'path';
 
 export const signToken = (_id: string, email: string)=>{
 
@@ -31,6 +30,10 @@ export const isValidToken = ( token: string ): Promise<string> =>{
     if( !process.env.JWT_SECRET_SEED){
         throw new Error("No hay semilla de jwt - revisar variabels de entorno");
         
+    }
+
+    if( token.length <= 10){
+        return Promise.reject( 'JWT no es valido')
     }
 
 

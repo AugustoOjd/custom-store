@@ -1,5 +1,5 @@
 import { RemoveShoppingCartOutlined } from '@mui/icons-material'
-import { Box, Link, Typography } from '@mui/material'
+import { Box, Button, Link, Typography } from '@mui/material'
 import React from 'react'
 import { ShopLayout } from '../../components/layouts'
 import NextLink from 'next/link'
@@ -26,7 +26,10 @@ const EmptyPage = () => {
                 <Typography variant='h1' component={'h1'} fontSize={80} fontWeight={200} > Su carrito esta vacio</Typography>
                 <NextLink href={'/'} passHref>
                     <Link typography={'h4'}>
-                        Regresar
+                        <Button color='secondary'>
+                            Regresar
+                        </Button>
+
                     </Link>
                 </NextLink>
             </Box>

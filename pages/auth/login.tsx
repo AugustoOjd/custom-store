@@ -46,7 +46,8 @@ const LoginPage = () => {
 
 
     //    Navegar a la pantalla que el usuario dejo
-        router.replace('/')
+        const destination = router.query.p?.toString() || '/'
+        router.replace(destination)
     }
     
   return (
@@ -101,7 +102,7 @@ const LoginPage = () => {
                         >Ingresar</Button>
                     </Grid>
                     <Grid item xs={12} display={'flex'} justifyContent={'end'}>
-                        <NextLink href={`/auth/register`} passHref>
+                        <NextLink href={ router.query.p ? `/auth/register?p=${ router.query.p }` : `/auth/register` } passHref>
                             <Link underline='always'>
                                 No tienes cueta?
                             </Link>

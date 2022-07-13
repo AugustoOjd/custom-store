@@ -4,6 +4,7 @@ import { storeApi } from '../../api';
 import { IUser } from '../../interface';
 import { AuthContext, authReducer} from './'
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 
 
@@ -26,12 +27,16 @@ export const AuthProvider:FC<Props> = ({children}) => {
 
     const [state, dispatch ] = useReducer(authReducer, AUTH_INITIAL_STATE);
 
+    const router = useRouter()
 
     useEffect(() => {
         checkToken()
     }, [])
 
     const checkToken = async() =>{
+
+
+        if(!Cookies.get('token'))return;
 
         try {
             const { data } = await storeApi.get('/user/validate-token')
@@ -92,16 +97,25 @@ export const AuthProvider:FC<Props> = ({children}) => {
         
         }
     }
-  
+
+    const logout=()=>{
+        Cookies.remove('token');
+        Cookies.remove('cart');
+
+        router.reload()
+    }
+
+
     return (
     <AuthContext.Provider value={{
         ...state,
         loginUser,
-        registerUser
+        registerUser,
+        logout
 
     }}>
         { children }
 
     </AuthContext.Provider>
-  )
+    )
 }
