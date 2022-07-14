@@ -19,6 +19,7 @@
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "env": "^0.0.2",
+    "jose": "^4.8.3",
     "js-cookie": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.0",

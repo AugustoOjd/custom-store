@@ -23,7 +23,7 @@ export interface ShippingAddress {
     address2?: string;
     zip      : string;
     city     : string;
-    country  : string;
+    provincias  : string;
     phone    : string;
 }
 
@@ -67,7 +67,7 @@ export const CartProvider:FC<Props> = ({ children }) => {
                 address2  : Cookie.get('address2') || '',
                 zip       : Cookie.get('zip') || '',
                 city      : Cookie.get('city') || '',
-                country   : Cookie.get('country') || '',
+                provincias   : Cookie.get('provincias') || '',
                 phone     : Cookie.get('phone') || '',
             }
             
@@ -146,7 +146,7 @@ export const CartProvider:FC<Props> = ({ children }) => {
         Cookie.set('address2',address.address2 || '');
         Cookie.set('zip',address.zip);
         Cookie.set('city',address.city);
-        Cookie.set('country',address.country);
+        Cookie.set('country',address.provincias);
         Cookie.set('phone',address.phone);
 
         dispatch({ type: '[Cart] - Update Address', payload: address });

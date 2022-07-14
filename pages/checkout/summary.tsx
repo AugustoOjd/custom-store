@@ -3,15 +3,25 @@ import React from 'react'
 import { CartList, OrderSummary } from '../../components/cart'
 import { ShopLayout } from '../../components/layouts'
 import NextLink from 'next/link'
+import { useContext } from 'react';
+import { CartContext } from '../../context'
 
 const SummaryPage = () => {
+
+
+    const { shippingAddress, numberOfItems } = useContext(CartContext)
+
+    if(!shippingAddress){
+        return <></>
+    }
+
   return (
     <ShopLayout title='Resumen de orden' pageDescription='Resumen de orden'>
         <Typography
             variant='h1'
             component={'h1'}
         >
-            Carrito
+            Resumen de la orden
         </Typography>
 
         <Grid container>
@@ -24,7 +34,7 @@ const SummaryPage = () => {
                         <Typography
                             variant='h2'
                         >
-                            Resumen (3 productos)
+                            Resumen: ({numberOfItems >= 99 ? '99+' : numberOfItems} {numberOfItems === 1 ? 'producto' : 'productos'})
                         </Typography>
                         <Divider sx={{ my: 1}}/>
 
@@ -36,11 +46,12 @@ const SummaryPage = () => {
                             </NextLink>
                         </Box>
 
-                        <Typography variant='subtitle1'>Addres de entrega</Typography>
-                        <Typography >Nombre y apellido</Typography>
-                        <Typography >provincia</Typography>
-                        <Typography >ciudad</Typography>
-                        <Typography >postal</Typography>
+                        <Typography variant='subtitle1'>Direccion de entrega</Typography>
+                        <Typography >{ shippingAddress?.firstName.toUpperCase().charAt(0)} {shippingAddress?.lastName}</Typography>
+                        <Typography >{ shippingAddress?.address}, { shippingAddress?.address2 ? shippingAddress?.address2 : ''}</Typography>
+                        <Typography >{ shippingAddress?.provincias}, { shippingAddress?.city}</Typography>
+                        <Typography >{ shippingAddress?.zip}</Typography>
+                        <Typography >{ shippingAddress?.phone}</Typography>
 
                         <Divider sx={{my:1}}/>
 
