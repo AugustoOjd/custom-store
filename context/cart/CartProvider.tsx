@@ -49,12 +49,21 @@ export const CartProvider:FC<Props> = ({ children }) => {
     // Efecto
     useEffect(() => {
         try {
-            const cookieProducts = Cookie.get('cart') !== undefined ? JSON.parse( Cookie.get('cart')! ): []
+            const cookieProducts = Cookie.get('cart') ? JSON.parse( Cookie.get('cart')! ): []
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: [] });
         }
     }, []);
+
+        
+
+
+    
+    useEffect(() => {
+        //   Cookie.set('cart', JSON.stringify( state.cart ));
+        if (state.cart.length > 0) Cookie.set('cart', JSON.stringify(state.cart))
+        }, [state.cart]);
 
 
     useEffect(() => {
@@ -74,14 +83,6 @@ export const CartProvider:FC<Props> = ({ children }) => {
             dispatch({ type:'[Cart] - LoadAddress from Cookies', payload: shippingAddress })
         }
     }, [])
-    
-
-
-    
-    useEffect(() => {
-    //   Cookie.set('cart', JSON.stringify( state.cart ));
-    if (state.cart.length > 0) Cookie.set('cart', JSON.stringify(state.cart))
-    }, [state.cart]);
 
 
     useEffect(() => {

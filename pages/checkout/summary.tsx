@@ -11,10 +11,6 @@ const SummaryPage = () => {
 
     const { shippingAddress, numberOfItems } = useContext(CartContext)
 
-    if(!shippingAddress){
-        return <></>
-    }
-
   return (
     <ShopLayout title='Resumen de orden' pageDescription='Resumen de orden'>
         <Typography
@@ -47,7 +43,7 @@ const SummaryPage = () => {
                         </Box>
 
                         <Typography variant='subtitle1'>Direccion de entrega</Typography>
-                        <Typography >{ shippingAddress?.firstName.toUpperCase().charAt(0)} {shippingAddress?.lastName}</Typography>
+                        <Typography >{ shippingAddress?.firstName} {shippingAddress?.lastName}</Typography>
                         <Typography >{ shippingAddress?.address}, { shippingAddress?.address2 ? shippingAddress?.address2 : ''}</Typography>
                         <Typography >{ shippingAddress?.provincias}, { shippingAddress?.city}</Typography>
                         <Typography >{ shippingAddress?.zip}</Typography>

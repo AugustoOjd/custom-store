@@ -5,9 +5,11 @@ import { lightTheme } from '../themes'
 import { SWRConfig } from 'swr'
 import { UiProvider } from '../context/ui'
 import { AuthProvider, CartProvider } from '../context'
+import { SessionProvider } from "next-auth/react"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return( 
+    <SessionProvider>
     <SWRConfig 
     value={{
       fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
@@ -24,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </CartProvider>
       </AuthProvider>
     </SWRConfig>
+    </SessionProvider>
 
   )
 }
