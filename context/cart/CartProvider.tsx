@@ -2,8 +2,9 @@ import { FC, useEffect, useReducer } from 'react';
 import Cookie from 'js-cookie';
 
 
-import { ICartProduct } from '../../interface';
+import { ICartProduct, ShippingAddress } from '../../interface';
 import { CartContext, cartReducer } from './';
+import { storeApi } from '../../api';
 
 export interface CartState {
     isLoaded: boolean;
@@ -15,18 +16,6 @@ export interface CartState {
 
     shippingAddress?: ShippingAddress;
 }
-
-export interface ShippingAddress {
-    firstName: string;
-    lastName : string;
-    address  : string;
-    address2?: string;
-    zip      : string;
-    city     : string;
-    provincias  : string;
-    phone    : string;
-}
-
 
 const CART_INITIAL_STATE: CartState = {
     isLoaded: false,
@@ -155,6 +144,18 @@ export const CartProvider:FC<Props> = ({ children }) => {
         dispatch({ type: '[Cart] - Update Address', payload: address });
     }
 
+    const createOrder = async ()=>{
+
+        try {
+            const {data} = await storeApi.post('/orders')
+
+            console.log(data)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     return (
         <CartContext.Provider value={{
@@ -165,6 +166,7 @@ export const CartProvider:FC<Props> = ({ children }) => {
             removeCartProduct,
             updateCartQuantity,
             updateAddress,
+            createOrder
         }}>
             { children }
         </CartContext.Provider>
