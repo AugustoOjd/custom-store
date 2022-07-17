@@ -3,13 +3,23 @@ import React from 'react'
 import { CartList, OrderSummary } from '../../components/cart'
 import { ShopLayout } from '../../components/layouts'
 import NextLink from 'next/link'
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CartContext } from '../../context'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router';
 
 const SummaryPage = () => {
 
-
+    const router = useRouter()
     const { shippingAddress, numberOfItems } = useContext(CartContext)
+
+
+    useEffect(() => {
+      if( !Cookies.get('firstName')){
+        router.push('/checkout/address')
+      }
+    }, [router])
+    
 
   return (
     <ShopLayout title='Resumen de orden' pageDescription='Resumen de orden'>

@@ -5,7 +5,7 @@ import { IUser } from '../../interface';
 import { AuthContext, authReducer} from './'
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 
 
@@ -35,7 +35,7 @@ export const AuthProvider:FC<Props> = ({children}) => {
     useEffect(() => {
         if( status === 'authenticated'){
             console.log({user: data?.user})
-            // dispatch({type: '[AUTH] - Login', payload: data?.user as IUser})
+            dispatch({type: '[AUTH] - Login', payload: data?.user as IUser})
         }
     }, [status, data])
     
@@ -110,10 +110,9 @@ export const AuthProvider:FC<Props> = ({children}) => {
     }
 
     const logout=()=>{
-        Cookies.remove('token');
         Cookies.remove('cart');
-
-
+        
+        
         Cookies.remove('firstName');
         Cookies.remove('lastName');
         Cookies.remove('address');
@@ -122,8 +121,11 @@ export const AuthProvider:FC<Props> = ({children}) => {
         Cookies.remove('city');
         Cookies.remove('country');
         Cookies.remove('phone');
+        
 
-        router.replace('/')
+        signOut()
+        // Cookies.remove('token');
+        // router.replace('/')
     }
 
 

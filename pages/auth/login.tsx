@@ -1,14 +1,14 @@
-import { Box, Grid, Typography, TextField, Button, Link, Chip } from '@mui/material';
+import { Box, Grid, Typography, TextField, Button, Link, Chip, Divider } from '@mui/material';
 import React, { useState } from 'react'
 import { AuthLayout } from '../../components/layouts'
 import NextLink from 'next/link'
 import { useForm } from 'react-hook-form';
 import { valitations } from '../../utils';
-import { storeApi } from '../../api';
 import { ErrorOutline } from '@mui/icons-material';
-import { useContext } from 'react';
-import { AuthContext } from '../../context';
 import { useRouter } from 'next/router';
+import { getSession, signIn, getProviders } from 'next-auth/react';
+import { GetServerSideProps } from 'next';
+import { useEffect } from 'react';
 
 
 
@@ -22,32 +22,42 @@ const LoginPage = () => {
 
 
     const router = useRouter()
-    const { loginUser } = useContext( AuthContext )
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const [showError, setShowError] = useState(false)
 
-    console.log(errors)
+    const [providers, setProviders] = useState<any>({})
+
+    useEffect(() => {
+        
+        getProviders().then( prov =>{
+            console.log({prov})
+            setProviders(prov)
+        })
+    }, [])
+    
 
     const onLoginUser = async ({email, password}: FormData)=>{
 
         setShowError(false)
 
-        const isValidLogin = await loginUser( email, password)
+    //     const isValidLogin = await loginUser( email, password)
 
-        if(!isValidLogin){
-            setShowError(true)
-            setTimeout(() => {
-                setShowError(false)
-            }, 3000);
+    //     if(!isValidLogin){
+    //         setShowError(true)
+    //         setTimeout(() => {
+    //             setShowError(false)
+    //         }, 3000);
 
-            return
-        }
+    //         return
+    //     }
 
 
-    //    Navegar a la pantalla que el usuario dejo
-        const destination = router.query.p?.toString() || '/'
-        router.replace(destination)
+    // //    Navegar a la pantalla que el usuario dejo
+    //     const destination = router.query.p?.toString() || '/'
+    //     router.replace(destination)
+
+        await signIn('credentials', { email, password})
     }
     
   return (
@@ -107,6 +117,29 @@ const LoginPage = () => {
                                 No tienes cueta?
                             </Link>
                         </NextLink>
+                    </Grid >
+
+                    <Grid item xs={12} display={'flex'} flexDirection={'column'} justifyContent={'end'}>
+                        <Divider sx={{width: '100%', mb: 2}}/>
+                        {
+                            Object.values( providers ).map(( prov: any)=>{
+
+                                if( prov.id === 'credentials')return (<div key={'credentials'}></div>)
+
+                                return(
+                                    <Button
+                                    key={prov.id}
+                                    variant={'outlined'}
+                                    fullWidth
+                                    color={'primary'}
+                                    sx={{mb: 1}}
+                                    onClick={()=> signIn(prov.id)}
+                                    >{prov.name}</Button>
+                                )
+                            })
+
+                            
+                        }
                     </Grid>
                 </Grid>
             </Box>
@@ -115,6 +148,29 @@ const LoginPage = () => {
         </AuthLayout>
     </>
   )
+}
+
+
+export const getServerSideProps: GetServerSideProps = async ({req, query})=>{
+
+
+    const session = await getSession({req})
+
+    const { p = '/' } = query
+    if (session) {
+      return{
+        redirect:{
+            destination: p.toString(),
+            permanent: false
+        }
+      }
+    } 
+
+    return {
+        props:{
+
+        }
+    }
 }
 
 export default LoginPage

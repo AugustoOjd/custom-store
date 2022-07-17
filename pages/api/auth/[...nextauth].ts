@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import Credentials from "next-auth/providers/credentials"
+import { dbUsers } from "../../../database"
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -9,13 +10,14 @@ export default NextAuth({
     Credentials({
         name: 'Custom Login',
         credentials: {
-            email: {label: 'Correo:', type: 'email', placeholder: 'crreo@google.com'},
+            email: {label: 'Correo:', type: 'email', placeholder: 'correo@google.com'},
             password: { label: 'Password:', type: 'password', placeholder: 'password'}
         },
-        async authorize(credetials){
-            console.log(credetials)
+        async authorize(credentials){
+            console.log(credentials)
 
-            return null
+            // return await dbUsers.checkUserEmaiPassword( credetials!.email, credetials!.password)
+            return await dbUsers.checkUserEmailPassword( credentials!.email, credentials!.password );
         }
     }),
 
@@ -26,13 +28,45 @@ export default NextAuth({
     // ...add more providers here
   ],
 
+  pages:{
+    signIn: '/auth/login',
+    newUser: '/auth/register'
+  },
+
+  session: {
+    maxAge: 2592000,
+    strategy: 'jwt',
+    updateAge: 86400
+  },
+
 
 //   Callbacks
   jwt:{
-    
+
   },
 
   callbacks:{
+    async jwt({ token, account, user}){
+      if(account){
+        token.accessToken = account.access_token;
 
+        switch (account.type) {
+          case 'oauth':
+              token.user = await dbUsers.oAuthToDbUser( user?.email || '', user?.name || '');
+            break;
+          case 'credentials':
+            token.user = user
+            break;
+        }
+      }
+      return token
+    },
+
+    async session({ session, token, user}){
+      session.accessYoken = token.accessToken;
+      session.user = token.user as any
+
+      return session
+    }
   }
 })
