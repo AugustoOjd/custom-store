@@ -2,7 +2,7 @@ import { FC, useEffect, useReducer } from 'react';
 import Cookie from 'js-cookie';
 
 
-import { ICartProduct, ShippingAddress } from '../../interface';
+import { ICartProduct, IOrder, ShippingAddress } from '../../interface';
 import { CartContext, cartReducer } from './';
 import { storeApi } from '../../api';
 
@@ -146,8 +146,26 @@ export const CartProvider:FC<Props> = ({ children }) => {
 
     const createOrder = async ()=>{
 
+        if(!state.shippingAddress){
+            throw new Error("no hay direccion de entrega");
+            
+        }
+
+        const body: IOrder = {
+            orderItems: state.cart.map(p => ({
+                ...p,
+                size: p.size!
+            })),
+            shippingAddress: state.shippingAddress,
+            numberOfItems: state.numberOfItems,
+            subTotal: state.subTotal,
+            tax: state.tax,
+            total: state.total,
+            isPaid: false
+        }
+
         try {
-            const {data} = await storeApi.post('/orders')
+            const {data} = await storeApi.post<IOrder>('/orders', body)
 
             console.log(data)
 
