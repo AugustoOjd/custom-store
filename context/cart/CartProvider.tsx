@@ -5,6 +5,7 @@ import Cookie from 'js-cookie';
 import { ICartProduct, IOrder, ShippingAddress } from '../../interface';
 import { CartContext, cartReducer } from './';
 import { storeApi } from '../../api';
+import axios from 'axios';
 
 export interface CartState {
     isLoaded: boolean;
@@ -51,9 +52,14 @@ export const CartProvider:FC<Props> = ({ children }) => {
     
     useEffect(() => {
         //   Cookie.set('cart', JSON.stringify( state.cart ));
-        if (state.cart.length > 0){ 
+        // if (state.cart.length > 0){ 
+        //     Cookie.set('cart', JSON.stringify(state.cart))
+        // }
+        if(state.cart.length > 0){
             Cookie.set('cart', JSON.stringify(state.cart))
         }
+
+
         }, [state.cart]);
 
 
@@ -144,7 +150,7 @@ export const CartProvider:FC<Props> = ({ children }) => {
         dispatch({ type: '[Cart] - Update Address', payload: address });
     }
 
-    const createOrder = async ()=>{
+    const createOrder = async ():Promise<{hasError: boolean; message: string}>=>{
 
         if(!state.shippingAddress){
             throw new Error("no hay direccion de entrega");
@@ -167,10 +173,25 @@ export const CartProvider:FC<Props> = ({ children }) => {
         try {
             const {data} = await storeApi.post<IOrder>('/orders', body)
 
-            console.log(data)
+            dispatch({type: '[Cart] - Order completa'})
+            
+
+            return{
+                hasError: false,
+                message: data._id!
+            }
 
         } catch (error) {
-            console.log(error)
+            if(axios.isAxiosError(error)){
+                return{
+                    hasError: true,
+                    message: 'Error de axios'
+                }
+            }
+            return{
+                hasError: true,
+                message: 'Error no controlado, administrador'
+            }
         }
     }
 
