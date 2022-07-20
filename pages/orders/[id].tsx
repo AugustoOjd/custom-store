@@ -169,6 +169,8 @@ const OrderPage: NextPage<Props> = ({order}) => {
                                 onApprove={(data, actions) => {
                                     return actions.order!.capture().then((details) => {
 
+                                        // ERROR DE TYPADO
+
                                         onOrderCompleted(details)
                                         // console.log({details})
                                         
