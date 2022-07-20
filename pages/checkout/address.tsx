@@ -126,7 +126,7 @@ const AddressPage = () => {
                     <FormControl fullWidth>
                         <TextField
                             select
-                            defaultValue={provincias[0].name}
+                            // defaultValue={provincias[0].name}
                             variant='filled'
                             label={'Provincia'}
                             {...register('provincias', {required: 'Este campo es requerido'} ) }
