@@ -34,7 +34,7 @@ const adminData = async (req: NextApiRequest,res: NextApiResponse<Data>)=> {
 
     const numberOfOrders = await Order.count()
     const paidOrders = await Order.find({ isPaid: true}).count()
-    const numberOfClients = await User.find({role: 'cliente'}).count()
+    const numberOfClients = await User.find({role: 'client'}).count()
     const numberOfProducts = await Product.count()
     const productsWithNoInvetory = await Product.find({ inStock: 0}).count()
     const lowInventory = await Product.find({ inStock: { $lte: 10 }}).count()
