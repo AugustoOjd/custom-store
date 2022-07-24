@@ -124,8 +124,8 @@ export const AuthProvider:FC<Props> = ({children}) => {
         
 
         signOut()
-        // Cookies.remove('token');
-        // router.replace('/')
+        Cookies.remove('token');
+        router.replace('/')
     }
 
 

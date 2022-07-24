@@ -16,7 +16,7 @@ export default function handler(req: NextApiRequest,res: NextApiResponse<Data>) 
             
             return getUsers(req, res);
     
-        case 'POST':
+        case 'PUT':
             return updateUser(req, res);
 
         default:
