@@ -1,10 +1,11 @@
 import { DashboardCustomizeOutlined } from '@mui/icons-material'
-import { Grid } from '@mui/material'
+import { CardMedia, Grid, Link } from '@mui/material'
 import React from 'react'
-import { AdminLayout } from '../../components/layouts'
+import { AdminLayout } from '../../../components/layouts'
 import { DataGrid, GridColDef, GridValueGetterParams} from '@mui/x-data-grid';
 import useSWR from 'swr';
-import { IOrder, IProduct } from '../../interface';
+import { IOrder, IProduct } from '../../../interface';
+import Nextlink from 'next/link'
 
 
 
@@ -14,17 +15,36 @@ const columns:GridColDef[] = [
         headerName: 'Photo',
         renderCell: ({row}: GridValueGetterParams) =>{
             return(
-                <a href={`/product/${row.slug}`}>
-                    Producto[slug]
+                <a href={`/products/${row.slug}`} target="_blank" rel="noreferrer">
+                    <CardMedia
+                        component={'img'}
+                        className={'fadeIn'}
+                        image={` /products/${row.img}`}
+                    />
+                        
                 </a>
             )
         }},
-    { field: 'title', headerName: 'Title'},
+    { 
+        field: 'title', 
+        headerName: 'Title',
+        width: 250,
+        renderCell: ({row}: GridValueGetterParams)=>{
+            return(
+                <Nextlink href={`/admin/products/${row.slug}`} passHref>
+                    <Link underline='always'>
+                        {row.title}
+                    </Link>
+                </Nextlink>
+            )
+        }    
+    },
     { field: 'gender', headerName: 'Gender'},
     { field: 'type', headerName: 'Type'},
     { field: 'inStock', headerName: 'Stock'},
     { field: 'price', headerName: 'Price'},
     { field: 'sizes', headerName: 'Sizes', width: 250},
+    { field: 'slug', headerName: 'Slug', width: 250},
 ]
 
 const ProductsPage = () => {
@@ -44,7 +64,7 @@ const ProductsPage = () => {
         type: product.type,
         inStock: product.inStock,
         price: product.price,
-        sizes: product.sizes,
+        sizes: product.sizes.join(', '),
         slug: product.slug
     }))
     
