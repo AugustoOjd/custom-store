@@ -1,5 +1,5 @@
-import { DashboardCustomizeOutlined } from '@mui/icons-material'
-import { CardMedia, Grid, Link } from '@mui/material'
+import { AddOutlined, DashboardCustomizeOutlined } from '@mui/icons-material'
+import { Box, Button, CardMedia, Grid, Link } from '@mui/material'
 import React from 'react'
 import { AdminLayout } from '../../../components/layouts'
 import { DataGrid, GridColDef, GridValueGetterParams} from '@mui/x-data-grid';
@@ -71,6 +71,16 @@ const ProductsPage = () => {
   return (
     <AdminLayout title='Productos' subTitle='Administrar productos' icon={<DashboardCustomizeOutlined/>}>
 
+        <Box display={'flex'} justifyContent={'end'} sx={{mb: 2}}>
+            <Button
+                startIcon={<AddOutlined/>}
+                color={'secondary'}
+                href={'/admin/products/new'}
+            >
+                Crear Producto
+            </Button>
+
+        </Box>
 
             <Grid container className='fadeIn'>
                 <Grid item xs={12} sx={{ height: 650, width: '100%'}}>
