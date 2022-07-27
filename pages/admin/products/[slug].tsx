@@ -87,13 +87,13 @@ const ProductAdminPage:FC<Props> = ({ product }) => {
         currentTags.push(newTag)
     }
 
-    const onDeleteTag = ( tag: string ) => {
+    const onDeleteTag =  ( tag: string ) => {
         const deletedTags = getValues('tags').filter( t => t !== tag )
 
         setValue('tags', deletedTags, {shouldValidate: true})
     }
 
-    const onFilesSelected = ({target}: ChangeEvent<HTMLInputElement>) => {
+    const onFilesSelected = async ({target}: ChangeEvent<HTMLInputElement>) => {
         if(!target.files || target.files.length === 0){
             return;
         }
@@ -104,7 +104,9 @@ const ProductAdminPage:FC<Props> = ({ product }) => {
             for( const file of target.files){
                 const formData = new FormData()
 
-                console.log( file )
+                formData.append( 'file', file)
+                const {data} = await storeApi.post<{message: string}>('/admin/upload', formData)
+                setValue('images', [...getValues('images'), data.message], {shouldValidate: true})
             }
         } catch (error) {
             console.log(error)
@@ -135,6 +137,12 @@ const ProductAdminPage:FC<Props> = ({ product }) => {
             console.log(error)
             setIsSaving(false)
         }
+    }
+
+    const onDeleteImage = (image: string)=>{
+        setValue('images', 
+        getValues('images').filter( img => img !== image ),
+        {shouldValidate: true})
     }
 
     return (
@@ -355,21 +363,26 @@ const ProductAdminPage:FC<Props> = ({ product }) => {
                                 label="Es necesario al 2 imagenes"
                                 color='error'
                                 variant='outlined'
+                                sx={{ display: getValues('images').length < 2 ? 'none' : 'flex'  }}
                             />
 
                             <Grid container spacing={2} sx={{mt: 1}}>
                                 {
-                                    product.images.map( img => (
+                                    getValues('images').map( img => (
                                         <Grid item xs={4} sm={3} key={img}>
                                             <Card>
                                                 <CardMedia 
                                                     component='img'
                                                     className='fadeIn'
-                                                    image={ `/products/${ img }` }
+                                                    image={ img  }
                                                     alt={ img }
                                                 />
                                                 <CardActions>
-                                                    <Button fullWidth color="error">
+                                                    <Button 
+                                                        fullWidth 
+                                                        color="error"
+                                                        onClick={()=> onDeleteImage(img)}
+                                                    >
                                                         Borrar
                                                     </Button>
                                                 </CardActions>
@@ -403,7 +416,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
         const tempProducto = JSON.parse( JSON.stringify( new Product() ))
         delete tempProducto._id;
-        tempProducto.images = ['img1.jpg', 'img2.jpg']
+        // tempProducto.images = ['img1.jpg', 'img2.jpg']
 
         product = tempProducto;
     }else{

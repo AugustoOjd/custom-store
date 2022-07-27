@@ -25,15 +25,19 @@ const getSlug = async (req: NextApiRequest, res: NextApiResponse<Data>)=> {
     const {slug} = req.query
 
 
-    const selectSlug = await Product.findOne({slug}).lean()
+    const product = await Product.findOne({slug}).lean()
     
     
     await db.disconnect()
     
-    if( !selectSlug){
+    if( !product){
         return res.status(404).json({ message: 'datos no encontrados'})
     }
 
-    return res.status(200).json(selectSlug)
+    product.images = product.images.map( img => {
+        return img.includes('http') ? img : `${process.env.HOST_NAME}/products/${img}`
+    })
+
+    return res.status(200).json(product)
    
 }

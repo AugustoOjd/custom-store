@@ -4,6 +4,10 @@ import { db } from '../../../database'
 import { IProduct } from '../../../interface'
 import { Product } from '../../../models'
 
+import { v2 as cloudinary } from 'cloudinary'
+
+cloudinary.config( process.env.CLOUDINARY_URL || '')
+
 type Data = 
 | { message: string }
 | IProduct[]
@@ -36,13 +40,21 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     
     await db.connect()
 
-    const productos = await Product.find()
+    const products = await Product.find()
         .sort({title: 'asc'})
         .lean()
 
     await db.disconnect()
 
-    return res.status(200).json(productos)
+    const updatedProducts = products.map(p => {
+        p.images = p.images.map( img => {
+            return img.includes('http') ? img : `${process.env.HOST_NAME}/products/${img}`
+        })
+
+        return p
+    })
+
+    return res.status(200).json(updatedProducts)
 }
 
 const updateProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -68,6 +80,18 @@ const updateProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) =
             await db.disconnect()
             return res.status(400).json({ message: 'no existe un producto con ese id'})
         }
+
+        // https://res.cloudinary.com/custom-store/image/upload/v1658958581/uu49swjvah3slxmftlmg.webp
+
+        product.images.forEach( async (image)=> {
+            if(!images.includes(image)){
+                const [ fileId, extension ] = image.substring( image.lastIndexOf('/') + 1).split('.')
+                console.log( { image, fileId, extension})
+
+                await cloudinary.uploader.destroy( fileId )
+            }
+
+        })
 
         await product.update( req.body )
 
