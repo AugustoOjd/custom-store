@@ -19,3 +19,6 @@ export interface IProduct {
 
 export type ISize = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
 export type ITypes = 'shirts'|'pants'|'hoodies'|'hats';
+
+
+// iniciando cambios de datos
