@@ -8,7 +8,7 @@ import { ICartProduct, IProduct } from '../../interface';
 import { FC, useContext } from 'react';
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { dbProducts } from '../../database';
-import { ISize } from '../../interface/products';
+import { IColors } from '../../interface/products';
 import { useRouter } from 'next/router';
 import { CartContext } from '../../context/cart';
 
@@ -30,18 +30,18 @@ const ProductoPage:FC<Props> = ({ product }) => {
       _id: product._id, 
       image: product.images[0], 
       price: product.price, 
-      size: undefined,
+      colors: undefined,
       slug: product.slug, 
       title: product.title,
-      gender: product.gender, 
+      category: product.category, 
       quantity: 1
     })
 
 
-    const selectedSize= (size: ISize) =>{
+    const selectedSize= (colors: IColors) =>{
       setTempCartProduct( currentProduct => ({
         ...currentProduct,
-        size
+        colors
       }))
     }
 
@@ -53,7 +53,7 @@ const ProductoPage:FC<Props> = ({ product }) => {
     }
 
     const addProduct = ()=>{
-      if( !tempCartProduct.size) return;
+      if( !tempCartProduct.colors) return;
 
       addProductToCart(tempCartProduct)
       router.push('/cart')
@@ -86,9 +86,9 @@ const ProductoPage:FC<Props> = ({ product }) => {
                   />
                 <SizeSelector 
                 // selectedSize={product.sizes} 
-                sizes={product.sizes}
-                selectedSize={tempCartProduct.size}
-                onSelectedSize={ (size)=> selectedSize(size)}
+                sizes={product.colors}
+                selectedSize={tempCartProduct.colors}
+                onSelectedSize={ (colors)=> selectedSize(colors)}
                 />
               </Box>
 
@@ -98,7 +98,7 @@ const ProductoPage:FC<Props> = ({ product }) => {
                 <Chip label='no hay disponibles' color='error' variant='outlined' />
                 :
                 (
-                  tempCartProduct.size
+                  tempCartProduct.colors
                   ?
 
                 <Button color='secondary' className='circular-btn' onClick={addProduct}>
@@ -106,7 +106,7 @@ const ProductoPage:FC<Props> = ({ product }) => {
                 </Button>
                 :
                 <Button disabled color='primary' className='circular-btn'>
-                  Seleccione una talla
+                  Seleccione Color
                 </Button>
                 )
               }

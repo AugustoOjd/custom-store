@@ -5,18 +5,17 @@ import { ProductList } from '../../components/products'
 import { FullScreenLoading } from '../../components/ui'
 import { useProducts } from '../../hooks'
 
-const WomenPage = () => {
+const ToolsPage = () => {
 
-  const { products, isLoading, isError} = useProducts('/products?gender=women')
+  const { products, isLoading, isError} = useProducts('/products?category=tools')
 
-  
   return (
     <>
-        <ShopLayout title='Women category' pageDescription='categoria de mujeres'>
+        <ShopLayout  title='Tools category' pageDescription='categoria de tools'>
 
-            <Typography variant='h1' component={'h1'}>Women</Typography>
+        <Typography variant='h1' component={'h1'}>Tools</Typography>
             <Typography variant='h2' sx={{md: 1}}>
-                Women products
+                Lista de Tools
             </Typography>
 
             {
@@ -26,10 +25,9 @@ const WomenPage = () => {
                 : <ProductList products={ products }/>
             }
 
-            
         </ShopLayout>
     </>
   )
 }
 
-export default WomenPage
+export default ToolsPage

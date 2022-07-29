@@ -5,17 +5,17 @@ import { ProductList } from '../../components/products';
 import { FullScreenLoading } from '../../components/ui';
 import { useProducts } from '../../hooks';
 
-const MenPage = () => {
+const KeycapsPage = () => {
 
-    const { products, isLoading, isError} = useProducts('/products?gender=men')
+    const { products, isLoading, isError} = useProducts('/products?category=keycaps')
     
   return (
     <>
-        <ShopLayout title='Men category' pageDescription='categoria de hombres'>
+        <ShopLayout title='Keycaps category' pageDescription='categoria de keycaps'>
             
-            <Typography variant='h1' component={'h1'}>Men</Typography>
+            <Typography variant='h1' component={'h1'}>Keycaps</Typography>
             <Typography variant='h2' sx={{md: 1}}>
-                Men products
+                Lista de keycaps
             </Typography>
 
             {
@@ -30,4 +30,4 @@ const MenPage = () => {
   )
 }
 
-export default MenPage
+export default KeycapsPage

@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import Head from "next/head"
 import React, { FC } from "react";
 import { AdminNavbar } from "../admin";
 import { SideMenu } from '../ui';
@@ -15,19 +14,6 @@ interface Props {
 export const AdminLayout:FC<Props> = ({children, title, subTitle, icon }) => {
   return (
     <>
-        {/* <Head>
-            <title>{title}</title>
-            <meta name="descrption" content={pageDescription}/>
-            <meta name="og: title" content={title}/>
-            <meta name="og: description" content={pageDescription}/>
-
-            {
-                imageFullUrl && (
-                    <meta name="og: image" content={imageFullUrl} />
-                )
-            }
-        </Head> */}
-
             <nav>
                 <AdminNavbar/>
             </nav>

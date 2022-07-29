@@ -4,12 +4,12 @@ export interface IProduct {
     images: string[];
     inStock: number;
     price: number;
-    sizes: ISize[];
+    colors: IColors[];
     slug: string;
     tags: string[];
     title: string;
     type: ITypes;
-    gender: "men"|"women"|"kid"|"unisex"
+    category: 'keycaps' | 'keyboards' | 'tools'
 
     // Create createAt
 
@@ -17,8 +17,7 @@ export interface IProduct {
     updatedAt: string
 }
 
-export type ISize = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
-export type ITypes = 'shirts'|'pants'|'hoodies'|'hats';
+export type IColors = 'black' | 'white' | 'yellow'| 'blue' | 'red' |'default';
+export type ITypes = 'keycap' | 'keyboard' | 'kit' | 'lube' | 'tool';
 
 
-// iniciando cambios de datos

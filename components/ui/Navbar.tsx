@@ -1,4 +1,4 @@
-import { ClearOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
+import { ClearOutlined, KeyboardAltOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
 import { AppBar, Badge, Box, Button, IconButton, Input, InputAdornment, Link, Toolbar, Typography } from '@mui/material'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
@@ -44,7 +44,9 @@ export const Navbar = () => {
 
                         <Link  >
                             <Box display={'flex'} alignItems={'center'}>
-                                <Typography variant='h6'> Custom</Typography>
+                                
+                                <Typography> <KeyboardAltOutlined/> </Typography>
+                                <Typography variant='h6' sx={{ ml: 0.5}}> Custom</Typography>
                                 <Typography sx={{ ml: 0.5}}> Store</Typography>
                             </Box>
                         </Link>
@@ -55,24 +57,24 @@ export const Navbar = () => {
                 <Box flex={1} />
 
                 <Box className='fadeIn' sx={{ display: isSearchVisible ? 'none' : { xs: 'none', sm: 'block'}}}>
-                    <NextLink href={'/category/men'} passHref>
+                    <NextLink href={'/category/keycaps'} passHref>
                         <Link >
-                            <Button color={asPath === '/category/men' ? 'primary' : 'info'}>
-                                Hombre
+                            <Button color={asPath === '/category/keycaps' ? 'primary' : 'info'}>
+                                Keycaps
                             </Button>
                         </Link>
                     </NextLink>
-                    <NextLink href={'/category/women'} passHref>
+                    <NextLink href={'/category/keyboards'} passHref>
                         <Link>
-                            <Button color={asPath === '/category/women' ? 'primary' : 'info'}>
-                                Mujeres
+                            <Button color={asPath === '/category/keyboards' ? 'primary' : 'info'}>
+                                Keyboards
                             </Button>
                         </Link>
                     </NextLink>
-                    <NextLink href={'/category/kids'} passHref>
+                    <NextLink href={'/category/tools'} passHref>
                         <Link>
-                            <Button color={asPath === '/category/kids' ? 'primary' : 'info'}>
-                                Kids
+                            <Button color={asPath === '/category/tools' ? 'primary' : 'info'}>
+                                Tools
                             </Button>
                         </Link>
                     </NextLink>

@@ -8,11 +8,11 @@ const productSchmea = new Schema(
         images: [{type: String}],
         inStock: {type: Number, required: true, default: 0},
         price: {type: Number, required: true, default: 0},
-        sizes: [
+        colors: [
             {
                 type: String,
                 enum: {
-                    values: ['XS','S','M','L','XL','XXL','XXXL'],
+                    values: ['black', 'white', 'yellow', 'blue', 'red','default'],
                     message: '{VALUE} no es permitido'
                 }
             }],
@@ -23,19 +23,19 @@ const productSchmea = new Schema(
             {
                 type: String,
                 enum: {
-                    values: ['shirts','pants','hoodies','hats'],
+                    values: ['keycap', 'keyboard', 'kit', 'lube', 'tool'],
                     message: '{VALUE} no permitido talle'
                 },
-                default: 'shirts'
+                default: 'keyboard'
             }],
-        gender: [
+        category: [
             {
                 type: String,
                 enum: {
-                    values: ["men","women","kid","unisex"],
+                    values: ['keycaps', 'keyboards', 'tools'],
                     message: '{VALUE} no es un genero valido'
                 },
-                default: 'women'
+                default: 'keyboard'
             
             }]
     },

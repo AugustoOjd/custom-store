@@ -5,17 +5,18 @@ import { ProductList } from '../../components/products'
 import { FullScreenLoading } from '../../components/ui'
 import { useProducts } from '../../hooks'
 
-const KidPage = () => {
+const KeyboardsPage = () => {
 
-  const { products, isLoading, isError} = useProducts('/products?gender=kid')
+  const { products, isLoading, isError} = useProducts('/products?category=keyboards')
 
+  
   return (
     <>
-        <ShopLayout  title='Kid-category' pageDescription='categoria de jovenes'>
+        <ShopLayout title='Keyboards category' pageDescription='categoria de keyboards'>
 
-        <Typography variant='h1' component={'h1'}>Kids</Typography>
+            <Typography variant='h1' component={'h1'}>Keyboards</Typography>
             <Typography variant='h2' sx={{md: 1}}>
-                Kids products
+                Lista de Keyboards
             </Typography>
 
             {
@@ -25,9 +26,10 @@ const KidPage = () => {
                 : <ProductList products={ products }/>
             }
 
+            
         </ShopLayout>
     </>
   )
 }
 
-export default KidPage
+export default KeyboardsPage

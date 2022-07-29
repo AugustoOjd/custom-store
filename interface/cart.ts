@@ -1,13 +1,13 @@
-import {ISize} from './'
+import {IColors} from './'
 
 export interface ICartProduct {
     _id: string
     image: string;
     price: number;
-    size?: ISize;
+    colors?: IColors;
     slug: string;
     title: string;
-    gender: 'men'|'women'|'kid'|'unisex'
+    category: 'keycaps'|'keyboards'|'tools'
     quantity: number
 }
 
