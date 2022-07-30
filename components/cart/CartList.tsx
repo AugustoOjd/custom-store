@@ -30,7 +30,7 @@ export const CartList:FC<Props> = ({editable = false, products}) => {
     <>
     {
         productsToShow?.map(product => (
-            <Grid container spacing={2} key={product.slug + product.size} sx={{mb:1}}>
+            <Grid container spacing={2} key={product.slug + product.colors} sx={{mb:1}}>
                 <Grid item xs={3}>
                     {/* llevar a la pagina del producto */}
                     <NextLink href={`/products/${product.slug}`} passHref>
@@ -54,7 +54,7 @@ export const CartList:FC<Props> = ({editable = false, products}) => {
                             {product.title}
                         </Typography>
                         <Typography variant='body1'>
-                            Talla: <strong>{product.size}</strong>
+                            Color: <strong>{product.colors}</strong>
                         </Typography>
 
                         {

@@ -112,13 +112,13 @@ export const CartProvider:FC<Props> = ({ children }) => {
         const productInCart = state.cart.some( p => p._id === product._id );
         if ( !productInCart ) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product ] })
 
-        const productInCartButDifferentSize = state.cart.some( p => p._id === product._id && p.size === product.size );
+        const productInCartButDifferentSize = state.cart.some( p => p._id === product._id && p.colors === product.colors );
         if ( !productInCartButDifferentSize ) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product ] })
 
         // Acumular
         const updatedProducts = state.cart.map( p => {
             if ( p._id !== product._id ) return p;
-            if ( p.size !== product.size ) return p;
+            if ( p.colors !== product.colors ) return p;
 
             // Actualizar la cantidad
             p.quantity += product.quantity;
@@ -160,7 +160,7 @@ export const CartProvider:FC<Props> = ({ children }) => {
         const body: IOrder = {
             orderItems: state.cart.map(p => ({
                 ...p,
-                size: p.size!
+                colors: p.colors!
             })),
             shippingAddress: state.shippingAddress,
             numberOfItems: state.numberOfItems,

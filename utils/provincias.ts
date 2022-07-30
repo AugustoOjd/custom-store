@@ -22,5 +22,29 @@ export const provincias = [
     {
         name: 'Tucuman',
         code: 'TUCM'
+    },
+    {
+        name: 'Catamarca',
+        code: 'CAT'
+    },
+    {
+        name: 'Chaco',
+        code: 'Cha'
+    },
+    {
+        name: 'Chubut',
+        code: 'Chub'
+    },
+    {
+        name: 'Entre rios',
+        code: 'ETR'
+    },
+    {
+        name: 'Rio Negro',
+        code: 'RIN'
+    },
+    {
+        name: 'Santa Cruz',
+        code: 'STCR'
     }
 ]

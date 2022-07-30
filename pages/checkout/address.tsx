@@ -2,9 +2,6 @@ import { Button, FormControl, Grid, MenuItem, Select, TextField, Typography } fr
 import { Box } from '@mui/system';
 import React from 'react'
 import { ShopLayout } from '../../components/layouts/ShopLayout';
-import { GetServerSideProps } from 'next';
-import { isValidToken } from '../../utils/jwt';
-import { jwt } from '../../utils';
 import { provincias } from '../../utils/provincias'
 import { useForm } from 'react-hook-form';
 import Cookie from 'js-cookie';

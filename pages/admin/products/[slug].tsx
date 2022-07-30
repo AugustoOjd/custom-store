@@ -11,9 +11,9 @@ import Product from '../../../models/Product';
 import { useRouter } from 'next/router';
 
 
-const validTypes  = ['shirts','pants','hoodies','hats']
-const validGender = ['men','women','kid','unisex']
-const validSizes = ['XS','S','M','L','XL','XXL','XXXL']
+const validTypes  = ['keycap', 'keyboard', 'tool']
+const validCategory = ['keycaps', 'keyboards', 'tools']
+const validColors = [ 'black', 'white', 'yellow', 'blue', 'red','default']
 
 interface Props {
     product: IProduct;
@@ -25,12 +25,12 @@ interface FormData {
     images       : string[];
     inStock      : number;
     price        : number;
-    sizes        : string[];
+    colors        : string[];
     slug         : string;
     tags         : string[];
     title        : string;
     type         : string;
-    gender       : string
+    category       : string
 }
 
 const ProductAdminPage:FC<Props> = ({ product }) => {
@@ -66,13 +66,13 @@ const ProductAdminPage:FC<Props> = ({ product }) => {
     }, [watch, setValue])
     
 
-    const onChangeSize = (size: string)=>{
-        const currentsizes = getValues('sizes')
-        if(currentsizes.includes(size)){
-            return setValue('sizes', currentsizes.filter( siz => siz !== size), { shouldValidate: true})
+    const onChangeColor = (color: string)=>{
+        const currentColors = getValues('colors')
+        if(currentColors.includes(color)){
+            return setValue('colors', currentColors.filter( col => col !== color), { shouldValidate: true})
         }
 
-        setValue('sizes', [...currentsizes, size], { shouldValidate: true})
+        setValue('colors', [...currentColors, color], { shouldValidate: true})
     }
 
     const onNewTag = ()=>{
@@ -248,14 +248,14 @@ const ProductAdminPage:FC<Props> = ({ product }) => {
                         </FormControl>
 
                         <FormControl sx={{ mb: 1 }}>
-                            <FormLabel>Género</FormLabel>
+                            <FormLabel>Categoria</FormLabel>
                             <RadioGroup
                                 row
-                                value={ getValues('gender') }
-                                onChange={ ({target})=> setValue('gender', target.value,  {shouldValidate: true}) }
+                                value={ getValues('category') }
+                                onChange={ ({target})=> setValue('category', target.value,  {shouldValidate: true}) }
                             >
                                 {
-                                    validGender.map( option => (
+                                    validCategory.map( option => (
                                         <FormControlLabel 
                                             key={ option }
                                             value={ option }
@@ -268,14 +268,14 @@ const ProductAdminPage:FC<Props> = ({ product }) => {
                         </FormControl>
 
                         <FormGroup>
-                            <FormLabel>Tallas</FormLabel>
+                            <FormLabel>Colores</FormLabel>
                             {
-                                validSizes.map(size => (
+                                validColors.map(color => (
                                     <FormControlLabel 
-                                        key={size} 
-                                        control={<Checkbox checked={ getValues('sizes').includes(size) } />} 
-                                        label={ size } 
-                                        onChange={(event)=> onChangeSize(size)}
+                                        key={color} 
+                                        control={<Checkbox checked={ getValues('colors').includes(color) } />} 
+                                        label={ color } 
+                                        onChange={(event)=> onChangeColor(color)}
                                         />
                                 ))
                             }
@@ -363,7 +363,7 @@ const ProductAdminPage:FC<Props> = ({ product }) => {
                                 label="Es necesario al 2 imagenes"
                                 color='error'
                                 variant='outlined'
-                                sx={{ display: getValues('images').length < 2 ? 'none' : 'flex'  }}
+                                sx={{ display: getValues('images').length < 2 ? 'flex' : 'none'  }}
                             />
 
                             <Grid container spacing={2} sx={{mt: 1}}>

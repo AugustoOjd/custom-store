@@ -1,8 +1,6 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 // import { isValidToken } from "../../utils/jwt";
-import { jwtVerify } from "jose"
 import { getToken } from 'next-auth/jwt'
-import { useRouter } from 'next/router';
 
 
 export async function middleware( req:NextRequest, ev:NextFetchEvent){

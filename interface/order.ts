@@ -1,5 +1,5 @@
 import { IUser } from './';
-import { ISize } from './products';
+import { IColors } from './products';
 
 
 
@@ -30,11 +30,11 @@ export interface IOrderItem {
     _id: string,
     image: string,
     title: string,
-    size: ISize,
+    colors: IColors,
     quantity: number,
     slug: string,
     price: number,
-    gender: string
+    category: string
 }
 
 export interface ShippingAddress {

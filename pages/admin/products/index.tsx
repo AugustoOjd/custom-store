@@ -39,11 +39,11 @@ const columns:GridColDef[] = [
             )
         }    
     },
-    { field: 'gender', headerName: 'Gender'},
+    { field: 'category', headerName: 'Category'},
     { field: 'type', headerName: 'Type'},
     { field: 'inStock', headerName: 'Stock'},
     { field: 'price', headerName: 'Price'},
-    { field: 'sizes', headerName: 'Sizes', width: 250},
+    { field: 'colors', headerName: 'Colors', width: 250},
     { field: 'slug', headerName: 'Slug', width: 250},
 ]
 
@@ -60,11 +60,11 @@ const ProductsPage = () => {
         id: product._id,
         img: product.images[0],
         title: product.title,
-        gender: product.gender,
+        category: product.category,
         type: product.type,
         inStock: product.inStock,
         price: product.price,
-        sizes: product.sizes.join(', '),
+        colors: product.colors.join(', '),
         slug: product.slug
     }))
     

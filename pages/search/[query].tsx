@@ -1,11 +1,8 @@
 import type { NextPage } from 'next'
 import { ShopLayout } from '../../components/layouts';
-import { Card, CardActionArea, CardMedia, Grid, Typography } from '@mui/material';
-import { initialData } from '../../database/products';
+import {  Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { ProductList } from '../../components/products';
-import { useProducts } from '../../hooks';
-import { FullScreenLoading } from '../../components/ui';
 import { GetServerSideProps } from 'next';
 import { dbProducts } from '../../database';
 import { IProduct } from '../../interface';

@@ -48,7 +48,9 @@ const CartPage = () => {
                         </Typography>
                         <Divider sx={{ my: 1}}/>
 
-                        <OrderSummary/>
+
+                        {/* Espera las props pero ya fueron mapeadas en su componente, es redundante colocarlas de vuelta */}
+                        <OrderSummary />
 
                         <Box sx={{ mt:3}}>
                             <Button 
