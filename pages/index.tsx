@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 import { ShopLayout } from '../components/layouts';
-import { Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import { ProductList } from '../components/products';
 import { useProducts } from '../hooks';
-import { FullScreenLoading } from '../components/ui';
+import { Banner, FullScreenLoading } from '../components/ui';
 
 
 
@@ -20,6 +20,8 @@ const Home: NextPage = () => {
     
     <ShopLayout title={'Custom-Store - Search'} pageDescription={'Encuentra los mejores productos personalizados'}>
 
+      <Banner />
+
 
       <Typography variant='h1' component={'h1'}>
           Custom Store
@@ -27,6 +29,8 @@ const Home: NextPage = () => {
         <Typography variant='h2' sx={{md: 1}}>
           Todos los productos
         </Typography>
+
+        <Divider/>  
 
         {
 

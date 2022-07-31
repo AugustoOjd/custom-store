@@ -37,7 +37,7 @@ export const Navbar = () => {
 
   return (
     <>
-        <AppBar>
+        <AppBar sx={{ backgroundColor: '#f28f3b'}}>
             <Toolbar>
                 {/* <Box > */}
                     <NextLink href={'/'} passHref>
@@ -45,7 +45,7 @@ export const Navbar = () => {
                         <Link  >
                             <Box display={'flex'} alignItems={'center'}>
                                 
-                                <Typography> <KeyboardAltOutlined/> </Typography>
+                                <KeyboardAltOutlined/>
                                 <Typography variant='h6' sx={{ ml: 0.5}}> Custom</Typography>
                                 <Typography sx={{ ml: 0.5}}> Store</Typography>
                             </Box>
@@ -56,23 +56,23 @@ export const Navbar = () => {
 
                 <Box flex={1} />
 
-                <Box className='fadeIn' sx={{ display: isSearchVisible ? 'none' : { xs: 'none', sm: 'block'}}}>
+                <Box className='fadeIn' sx={{ display: isSearchVisible ? 'none' : { xs: 'none', sm: 'flex'}}}>
                     <NextLink href={'/category/keycaps'} passHref>
-                        <Link >
+                        <Link sx={{ margin: '0px 5px'}}>
                             <Button color={asPath === '/category/keycaps' ? 'primary' : 'info'}>
                                 Keycaps
                             </Button>
                         </Link>
                     </NextLink>
                     <NextLink href={'/category/keyboards'} passHref>
-                        <Link>
+                        <Link sx={{ margin: '0px 5px'}}>
                             <Button color={asPath === '/category/keyboards' ? 'primary' : 'info'}>
                                 Keyboards
                             </Button>
                         </Link>
                     </NextLink>
                     <NextLink href={'/category/tools'} passHref>
-                        <Link>
+                        <Link sx={{ margin: '0px 5px'}}>
                             <Button color={asPath === '/category/tools' ? 'primary' : 'info'}>
                                 Tools
                             </Button>
@@ -81,11 +81,6 @@ export const Navbar = () => {
                 </Box>
 
                 <Box flex={1} />
-
-                {/* desktop */}
-                {/* <IconButton>
-                    <SearchOutlined />
-                </IconButton> */}
 
                 <Box sx={{ display: { xs: 'none', sm: 'flex'}}}>
                 {

@@ -185,7 +185,7 @@ export const CartProvider:FC<Props> = ({ children }) => {
             if(axios.isAxiosError(error)){
                 return{
                     hasError: true,
-                    message: 'Error de axios'
+                    message: 'Modifique la dirrecte'
                 }
             }
             return{

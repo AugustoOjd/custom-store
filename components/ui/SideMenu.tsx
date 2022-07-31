@@ -1,5 +1,5 @@
 import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
-import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, DashboardCustomizeOutlined, EscalatorWarningOutlined, FemaleOutlined, LoginOutlined, MaleOutlined, SearchOutlined, VpnKeyOutlined } from "@mui/icons-material"
+import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, DashboardCustomizeOutlined, EscalatorWarningOutlined, FemaleOutlined, KeyboardAltOutlined, KeyboardCapslockOutlined, KeyboardOptionKeyOutlined, LoginOutlined, MaleOutlined, SearchOutlined, VpnKeyOutlined } from "@mui/icons-material"
 import { useRouter } from "next/router";
 import {useState, useContext} from 'react';
 import { AuthContext, UiContext  } from "../../context";
@@ -67,12 +67,12 @@ export const SideMenu = () => {
 
                     ?
                 <>
-                <ListItem button>
+                {/* <ListItem button>
                     <ListItemIcon>
                         <AccountCircleOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Perfil'} />
-                </ListItem>
+                </ListItem> */}
 
                 <ListItem button onClick={()=> navigateTo('/orders/history')}>
                     <ListItemIcon>
@@ -93,21 +93,21 @@ export const SideMenu = () => {
 
                 <ListItem button sx={{ display: { xs: '', sm: 'none' } }} onClick={()=> navigateTo('/category/keycaps')}>
                     <ListItemIcon>
-                        <MaleOutlined/>
+                        <KeyboardCapslockOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Keycaps'} />
                 </ListItem>
 
                 <ListItem button sx={{ display: { xs: '', sm: 'none' } }} onClick={()=> navigateTo('/category/keyboards')}>
                     <ListItemIcon>
-                        <FemaleOutlined/>
+                        <KeyboardAltOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Keyboards'} />
                 </ListItem>
 
                 <ListItem button sx={{ display: { xs: '', sm: 'none' } }} onClick={()=> navigateTo('/category/tools')}>
                     <ListItemIcon>
-                        <EscalatorWarningOutlined/>
+                        <KeyboardOptionKeyOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Tools'} />
                 </ListItem>
