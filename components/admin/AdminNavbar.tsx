@@ -12,7 +12,7 @@ export const AdminNavbar = () => {
 
   return (
     <>
-        <AppBar>
+        <AppBar sx={{ backgroundColor: '#f28f3b'}}>
             <Toolbar>
                 {/* <Box > */}
                     <NextLink href={'/'} passHref>
