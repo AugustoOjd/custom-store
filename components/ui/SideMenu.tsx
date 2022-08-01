@@ -1,5 +1,5 @@
-import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
-import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, DashboardCustomizeOutlined, EscalatorWarningOutlined, FemaleOutlined, KeyboardAltOutlined, KeyboardCapslockOutlined, KeyboardOptionKeyOutlined, LoginOutlined, MaleOutlined, SearchOutlined, VpnKeyOutlined } from "@mui/icons-material"
+import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Typography } from "@mui/material"
+import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, DashboardCustomizeOutlined, EmailOutlined, EscalatorWarningOutlined, FemaleOutlined, KeyboardAltOutlined, KeyboardCapslockOutlined, KeyboardOptionKeyOutlined, LoginOutlined, MaleOutlined, PeopleAltOutlined, SearchOutlined, VpnKeyOutlined } from "@mui/icons-material"
 import { useRouter } from "next/router";
 import {useState, useContext} from 'react';
 import { AuthContext, UiContext  } from "../../context";
@@ -37,6 +37,26 @@ export const SideMenu = () => {
         sx={{ backdropFilter: 'blur(4px)', transition: 'all 0.5s ease-out' }}
     >
         <Box sx={{ width: 250, paddingTop: 5 }}>
+            
+            <Typography
+                display={'flex'}
+                alignItems={'center'}
+                color={'secondary'}
+                sx={{ml: 2}}
+                >
+                <PeopleAltOutlined/>User: {user?.name.toLocaleUpperCase()}
+            </Typography>
+                
+            <Typography
+                display={'flex'}
+                alignItems={'center'}
+                color={'secondary'}
+                sx={{ml: 2, mb: 2}}
+                >
+                <EmailOutlined/> Email: {user?.email.toLocaleUpperCase()}
+                </Typography>
+
+                <Divider/>
             
             <List>
 
