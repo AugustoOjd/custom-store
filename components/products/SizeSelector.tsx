@@ -1,26 +1,26 @@
 import React, { FC } from 'react'
-import { ISize } from '../../interface'
+import { IColors } from '../../interface'
 import { Box, Button } from '@mui/material';
 
 interface Props{
-    selectedSize?: ISize,
-    sizes: ISize[]
+    selectedColor?: IColors,
+    colors: IColors[]
 
-    onSelectedSize: (size: ISize) => void
+    onSelctedColor: (color: IColors) => void
 }
 
-export const SizeSelector:FC<Props> = ({selectedSize, sizes, onSelectedSize}) => {
+export const SizeSelector:FC<Props> = ({selectedColor, colors, onSelctedColor}) => {
   return (
     <Box>
         {
-            sizes.map(size => (
+            colors.map(color => (
                 <Button
-                    key={size}
+                    key={color}
                     size='small'
-                    color={ selectedSize === size ? 'primary' : 'info'}
-                    onClick={ ()=> onSelectedSize(size)}
+                    color={ selectedColor === color ? 'primary' : 'info'}
+                    onClick={ ()=> onSelctedColor(color)}
                 >
-                    {size}
+                    {color}
                 </Button>
             ))
         }
