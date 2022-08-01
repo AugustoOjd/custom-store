@@ -19,6 +19,10 @@ Cuando estas como administrador, puedes ver toda la lista de productos, agregar,
 
 ![Agregar nuevos productos](public/assets/admin3.jpg)
 
+## Simulador de compra con paypal o tarjeta
+
+![Paypal](public/assets/paypal.jpg)
+
 
 # Para desarrollar se uso:
 
