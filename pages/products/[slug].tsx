@@ -38,7 +38,7 @@ const ProductoPage:FC<Props> = ({ product }) => {
     })
 
 
-    const selectedSize= (colors: IColors) =>{
+    const selectedColor= (colors: IColors) =>{
       setTempCartProduct( currentProduct => ({
         ...currentProduct,
         colors
@@ -85,10 +85,9 @@ const ProductoPage:FC<Props> = ({ product }) => {
 
                   />
                 <SizeSelector 
-                // selectedSize={product.sizes} 
-                sizes={product.colors}
-                selectedSize={tempCartProduct.colors}
-                onSelectedSize={ (colors)=> selectedSize(colors)}
+                colors={product.colors}
+                selectedColor={tempCartProduct.colors}
+                onSelectedColor={ (colors)=> selectedColor(colors)}
                 />
               </Box>
 

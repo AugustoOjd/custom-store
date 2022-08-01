@@ -6,10 +6,10 @@ interface Props{
     selectedColor?: IColors,
     colors: IColors[]
 
-    onSelctedColor: (color: IColors) => void
+    onSelectedColor: (color: IColors) => void
 }
 
-export const SizeSelector:FC<Props> = ({selectedColor, colors, onSelctedColor}) => {
+export const SizeSelector:FC<Props> = ({selectedColor, colors, onSelectedColor}) => {
   return (
     <Box>
         {
@@ -18,7 +18,7 @@ export const SizeSelector:FC<Props> = ({selectedColor, colors, onSelctedColor}) 
                     key={color}
                     size='small'
                     color={ selectedColor === color ? 'primary' : 'info'}
-                    onClick={ ()=> onSelctedColor(color)}
+                    onClick={ ()=> onSelectedColor(color)}
                 >
                     {color}
                 </Button>

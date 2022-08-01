@@ -27,6 +27,7 @@ Cuando estas como administrador, puedes ver toda la lista de productos, agregar,
 - Mongodb Atlas
 - Material Ui
 - Auth Next
+- React-hook-form
 - Cookies js
 - JWT
 - encrypt js
