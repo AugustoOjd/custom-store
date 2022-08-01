@@ -20,7 +20,7 @@ export type OrderResponseBody ={
         | 'APPROVED'
         | 'VOIDED'
         | 'PLAYER_ACTION_REQUIRED' 
-        | ''
+        | any
 }
 
 interface Props{

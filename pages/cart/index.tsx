@@ -50,7 +50,7 @@ const CartPage = () => {
 
 
                         {/* Espera las props pero ya fueron mapeadas en su componente, es redundante colocarlas de vuelta */}
-                        <OrderSummary />
+                        <OrderSummary/>
 
                         <Box sx={{ mt:3}}>
                             <Button 
